@@ -9,31 +9,37 @@ namespace Tests
         [Fact]
         public void InterporlateSubstitutionValuesReturnsInterpolatedString()
         {
-            Assert.Equal("Hello Jim", TextHelpers.Interpolate("Hello [name]", new Dictionary<string, string> { { "name", "Jim" } }));
+            var result = TextHelpers.Interpolate("Hello [name]", new Dictionary<string, string> { { "name", "Jim" } });
+            Assert.Equal("Hello Jim", result);
         }
 
         [Fact]
         public void InterporlateEscapeCharactersReturnsInterpolatedString()
         {
-            Assert.Equal("Hello Jim [author]", TextHelpers.Interpolate("Hello [name] [[author]]", new Dictionary<string, string> { { "name", "Jim" } }));
+            var result = TextHelpers.Interpolate("Hello [name] [[author]]", new Dictionary<string, string> { { "name", "Jim" } });
+            Assert.Equal("Hello Jim [author]", result);
         }
 
         [Fact]
         public void InterporlateUnevenEscapeCharactersReturnsInterpolatedString()
         {
-            Assert.Equal("Hello Jim [:", TextHelpers.Interpolate("Hello [name] [[:", new Dictionary<string, string> { { "name", "Jim" } }));
+            var result = TextHelpers.Interpolate("Hello [name] [[:", new Dictionary<string, string> { { "name", "Jim" } });
+            Assert.Equal("Hello Jim [:", result);
         }
 
         [Fact]
         public void InterporlateNestedDelimitersReturnsInterpolatedString()
         {
-            Assert.Equal("Hello Jim [Jam]", TextHelpers.Interpolate("Hello [name] [[[author]]]", new Dictionary<string, string> { { "name", "Jim" }, { "author", "Jam" } }));
+            var result = TextHelpers.Interpolate("Hello [name] [[[author]]]", new Dictionary<string, string> { { "name", "Jim" }, { "author", "Jam" } });
+            Assert.Equal("Hello Jim [Jam]", result);
         }
 
         [Fact]
         public void InterporlateEmptyStringReturnsEmptyString()
         {
-            Assert.Equal("", TextHelpers.Interpolate("", null));
+            var result = TextHelpers.Interpolate("", null);
+            Assert.Equal("", result);
+        }
         }
     }
 }
