@@ -1,4 +1,5 @@
 ﻿using Core;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -40,6 +41,23 @@ namespace Tests
             var result = TextHelpers.Interpolate("", null);
             Assert.Equal("", result);
         }
+
+        [Fact]
+        public void InterporlateMorePlaceholdersThanSubstitutionValuesThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() => TextHelpers.Interpolate("Hello [name] [author]", new Dictionary<string, string> { { "name", "Jim" } }));
+        }
+
+        [Fact]
+        public void InterporlateEmptySubstitutionValuesThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() => TextHelpers.Interpolate("Hello [name] [author]", new Dictionary<string, string>()));
+        }
+
+        [Fact]
+        public void InterporlateNullSubstitutionValuesThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() => TextHelpers.Interpolate("Hello [name] [author]", null));
         }
     }
 }
