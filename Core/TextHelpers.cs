@@ -8,13 +8,10 @@ namespace Core
     {
         public static string Interpolate(string input, Dictionary<string, string> interpolationValues)
         {
-            var interpolationPlaceholders = Regex.Matches(input, @"([\[].*?)\]");
-            // check number of matches == size of dictionary
+            var interpolationPlaceholders = Regex.Matches(input, @"(?<!\[)(\[\[)*\[(?!\[).*?\]");
 
             foreach (var placeholder in interpolationPlaceholders) {
                 var interpolationPlaceholder = placeholder.ToString();
-                if (CapturedGroupShouldNotBeSubstituted(interpolationPlaceholder)) continue;
-
                 var numberOfDelimiters = interpolationPlaceholder.Count(x => x == '[');
                 var interpolationPlaceholderKey = interpolationPlaceholder.Replace("[", "").Replace("]", "");
                 input = input.Replace("[" + interpolationPlaceholderKey + "]", interpolationValues[interpolationPlaceholderKey]); //try get value
@@ -24,12 +21,6 @@ namespace Core
             input = input.Replace("]]", "]");
 
             return input;
-        }
-
-        static bool CapturedGroupShouldNotBeSubstituted(string capturedGroupContainingDelimiter)
-        {
-            var numberOfDelimiters = capturedGroupContainingDelimiter.Count(x => x == '[');
-            return numberOfDelimiters % 2 == 0;
         }
     }
 }
