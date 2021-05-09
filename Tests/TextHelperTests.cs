@@ -43,6 +43,13 @@ namespace Tests
         }
 
         [Fact]
+        public void InterporlateSubstitutionInMiddleOfWordReturnsInterpolatedString()
+        {
+            var result = TextHelpers.Interpolate("Hello [name]-Jr", new Dictionary<string, string> { { "name", "Jim" } });
+            Assert.Equal("Hello Jim-Jr", result);
+        }
+
+        [Fact]
         public void InterporlateMorePlaceholdersThanSubstitutionValuesThrowsException()
         {
             Assert.Throws<ArgumentException>(() => TextHelpers.Interpolate("Hello [name] [author]", new Dictionary<string, string> { { "name", "Jim" } }));
