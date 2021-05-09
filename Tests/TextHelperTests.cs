@@ -17,5 +17,11 @@ namespace Tests
         {
             Assert.Equal("Hello Jim [author]", TextHelpers.Interpolate("Hello [name] [[author]]", new Dictionary<string, string> { { "name", "Jim" } }));
         }
+
+        [Fact]
+        public void InterporlateHandleNestedDelimiterInterpolatedString()
+        {
+            Assert.Equal("Hello Jim [Jam]", TextHelpers.Interpolate("Hello [name] [[[author]]]", new Dictionary<string, string> { { "name", "Jim" }, { "author", "Jam" } }));
+        }
     }
 }
