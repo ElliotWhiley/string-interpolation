@@ -13,10 +13,9 @@ namespace Core
 
             foreach (var placeholder in interpolationPlaceholders) {
                 var interpolationPlaceholder = placeholder.ToString();
-                var numberOfDelimiters = interpolationPlaceholder.Count(x => x == '[');
-                // An even number of delimiter characters represents an escaped delimiter character
-                if (numberOfDelimiters % 2 == 0) continue;
+                if (CapturedGroupShouldNotBeSubstituted(interpolationPlaceholder)) continue;
 
+                var numberOfDelimiters = interpolationPlaceholder.Count(x => x == '[');
                 var interpolationPlaceholderKey = interpolationPlaceholder.Replace("[", "").Replace("]", "");
                 input = input.Replace("[" + interpolationPlaceholderKey + "]", interpolationValues[interpolationPlaceholderKey]); //try get value
             }
@@ -25,6 +24,12 @@ namespace Core
             input = input.Replace("]]", "]");
 
             return input;
+        }
+
+        static bool CapturedGroupShouldNotBeSubstituted(string capturedGroupContainingDelimiter)
+        {
+            var numberOfDelimiters = capturedGroupContainingDelimiter.Count(x => x == '[');
+            return numberOfDelimiters % 2 == 0;
         }
     }
 }
