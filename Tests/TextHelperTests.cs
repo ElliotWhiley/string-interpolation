@@ -52,5 +52,11 @@ namespace Tests
         {
             Assert.Throws<ArgumentException>(() => TextHelpers.Interpolate("Hello [name] [author]", null));
         }
+
+        [Fact]
+        public void InterporlateSubstitutionValueDoesNotMatchThrowsException()
+        {
+            Assert.Throws<ArgumentException>(() => TextHelpers.Interpolate("Hello [name]", new Dictionary<string, string> { { "author", "Jam" } }));
+        }
     }
 }
