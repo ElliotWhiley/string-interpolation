@@ -36,6 +36,13 @@ namespace Tests
         }
 
         [Fact]
+        public void InterporlateDelimiterReturnsInterpolatedString()
+        {
+            var result = TextHelpers.Interpolate("Hello [name]", new Dictionary<string, string> { { "name", "[:" } });
+            Assert.Equal("Hello [:", result);
+        }
+
+        [Fact]
         public void InterporlateMorePlaceholdersThanSubstitutionValuesThrowsException()
         {
             Assert.Throws<ArgumentException>(() => TextHelpers.Interpolate("Hello [name] [author]", new Dictionary<string, string> { { "name", "Jim" } }));
