@@ -29,5 +29,11 @@ namespace Tests
         {
             Assert.Equal("Hello Jim [Jam]", TextHelpers.Interpolate("Hello [name] [[[author]]]", new Dictionary<string, string> { { "name", "Jim" }, { "author", "Jam" } }));
         }
+
+        [Fact]
+        public void InterporlateEmptyStringReturnsEmptyString()
+        {
+            Assert.Equal("", TextHelpers.Interpolate("", null));
+        }
     }
 }
