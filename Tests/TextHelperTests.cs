@@ -19,6 +19,12 @@ namespace Tests
         }
 
         [Fact]
+        public void InterporlateUnevenEscapeCharactersReturnsInterpolatedString()
+        {
+            Assert.Equal("Hello Jim [:", TextHelpers.Interpolate("Hello [name] [[:", new Dictionary<string, string> { { "name", "Jim" } }));
+        }
+
+        [Fact]
         public void InterporlateNestedDelimitersReturnsInterpolatedString()
         {
             Assert.Equal("Hello Jim [Jam]", TextHelpers.Interpolate("Hello [name] [[[author]]]", new Dictionary<string, string> { { "name", "Jim" }, { "author", "Jam" } }));
