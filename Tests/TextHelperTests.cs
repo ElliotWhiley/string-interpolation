@@ -36,13 +36,6 @@ namespace Tests
         }
 
         [Fact]
-        public void InterporlateEmptyStringReturnsEmptyString()
-        {
-            var result = TextHelpers.Interpolate("", null);
-            Assert.Equal("", result);
-        }
-
-        [Fact]
         public void InterporlateMorePlaceholdersThanSubstitutionValuesThrowsException()
         {
             Assert.Throws<ArgumentException>(() => TextHelpers.Interpolate("Hello [name] [author]", new Dictionary<string, string> { { "name", "Jim" } }));
