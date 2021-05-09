@@ -20,7 +20,6 @@ namespace Core
 
             foreach (var placeholder in interpolationPlaceholders) {
                 var interpolationPlaceholder = placeholder.ToString();
-                var numberOfDelimiters = interpolationPlaceholder.Count(x => x == '[');
                 var interpolationPlaceholderKey = interpolationPlaceholder.Replace("[", "").Replace("]", "");
                 input = input.Replace("[" + interpolationPlaceholderKey + "]", substitutionValues[interpolationPlaceholderKey]); //try get value
             }
