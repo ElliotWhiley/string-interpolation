@@ -19,15 +19,16 @@ namespace Core
 
             foreach (var placeholder in interpolationPlaceholders) {
                 var interpolationPlaceholder = placeholder.ToString();
-                var interpolationPlaceholderKey = interpolationPlaceholder.Replace("[", "").Replace("]", "");
+                var interpolationPlaceholderKey = interpolationPlaceholder.Replace("[", "")
+                    .Replace("]", "");
                 var foundMatchingValue = substitutionValues.TryGetValue(interpolationPlaceholderKey, out var interpolationPlaceholderValue);
                 if (!foundMatchingValue) throw new ArgumentException("Substitution value not found for placeholder: " + interpolationPlaceholderKey, nameof(substitutionValues));
 
                 input = input.Replace("[" + interpolationPlaceholderKey + "]", interpolationPlaceholderValue);
             }
 
-            input = input.Replace("[[", "[");
-            input = input.Replace("]]", "]");
+            input = input.Replace("[[", "[")
+                .Replace("]]", "]");
 
             return input;
         }
