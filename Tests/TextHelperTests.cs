@@ -22,6 +22,13 @@ namespace Tests
         }
 
         [Fact]
+        public void InterporlateEscapeCharactersReverseOrderReturnsInterpolatedString()
+        {
+            var result = TextHelpers.Interpolate("[[Name]] is [Name]", new Dictionary<string, string> { { "Name", "Jim" } });
+            Assert.Equal("[Name] is Jim", result);
+        }
+
+        [Fact]
         public void InterporlateUnevenEscapeCharactersReturnsInterpolatedString()
         {
             var result = TextHelpers.Interpolate("Hello [name] [[:", new Dictionary<string, string> { { "name", "Jim" } });
