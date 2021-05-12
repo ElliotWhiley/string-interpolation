@@ -22,7 +22,7 @@ namespace Tests
         }
 
         [Fact]
-        public void InterporlateEscapeCharactersReverseOrderReturnsInterpolatedString()
+        public void InterporlateDuplicateKeysReturnsInterpolatedString()
         {
             var result = TextHelpers.Interpolate("[[Name]] is [Name]", new Dictionary<string, string> { { "Name", "Jim" } });
             Assert.Equal("[Name] is Jim", result);
