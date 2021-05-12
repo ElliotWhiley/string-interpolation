@@ -7,12 +7,12 @@ namespace Core
     public static class TextHelpers
     {
         // Only captures values enclosed by an odd number of delimiters, otherwise an escape sequence is implied
-        static readonly Regex InterpolatedStringPattern = new Regex(@"(\[\[)+|\[([^\[\]])+\]", RegexOptions.IgnoreCase);
+        static readonly Regex InterpolatedStringPattern = new Regex(@"(\[\[)+|\[([^\[\]])+\]");
 
-        public static string Interpolate(string input, Dictionary<string, string> substitutionValues)
+        public static string Interpolate(string input, Dictionary<string, string> mappings)
         {
-            if (substitutionValues == null) throw new ArgumentException("Substitution values must not be null", nameof(substitutionValues));
-            if (substitutionValues.Count == 0) throw new ArgumentException("Substitution values must not be empty", nameof(substitutionValues));
+            if (mappings == null) throw new ArgumentException("Mapping must not be null", nameof(mappings));
+            if (mappings.Count == 0) throw new ArgumentException("Mappings must not be empty", nameof(mappings));
 
             var output = InterpolatedStringPattern.Replace(input, match => {
                 var key = match.Value
@@ -21,9 +21,9 @@ namespace Core
 
                 // Workaround for regex pattern which matches leading brackets e.g. "[["
                 if (string.IsNullOrWhiteSpace(key)) return match.Value;
-                if (!substitutionValues.ContainsKey(key)) throw new ArgumentException("Substitution value not found for placeholder: " + key, nameof(substitutionValues));
+                if (!mappings.ContainsKey(key)) throw new ArgumentException("Mapping not found for key: " + key, nameof(mappings));
                 
-                return substitutionValues[key];
+                return mappings[key];
             });
 
             return ReplaceEscapeSequences(output);
